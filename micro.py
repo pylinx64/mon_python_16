@@ -1,3 +1,6 @@
+import speech_recognition as sr
+# теперь вместо command = input() -> command = human_speech(r)
+
 # Функция служит для отслеживания микрофона(запись речи)
 def human_speech(rec):
         with sr.Microphone() as source:
