@@ -11,9 +11,17 @@ def message_hello(message):
 @bot.message_handler(content_types=['text'])
 def message_text(message):
 	'''Принимает текст и отвечает на него'''
-	# бот отправляет сообщение 
-	bot.send_message(message.chat.id, 'Как поживаешь?')
-	bot.send_message(message.chat.id, '🦶')
+	print(message.chat.first_name, message.text)
+	if 'дела' in message.text.lower():
+		bot.send_message(message.chat.id, 'норм') # бот отправляет сообщение 
+	elif 'привет' in message.text.lower():
+		bot.send_message(message.chat.id, '''
+		да да да
+		нет нет нет
+		ок ок ок
+		''') 
+	else:
+		bot.send_message(message.chat.id, 'Я тебя не понимаю')
 
 
 print('#run bot...')
