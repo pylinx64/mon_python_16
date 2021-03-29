@@ -1,13 +1,39 @@
 import telebot
 import random 
+import bs4
+import requests
+from telebot import types
 
 bot = telebot.TeleBot('1615084228:AAH7ZYVsJMNhv15_6HL1yq2-B8TGZL3VRbs') 	# сюда токен
+
+#--------------------------parser---------------------------------------
+def parser_gif(search):
+	'''Функция которая парсит ссылки с гифками'''
+	
+	# подключаемся к сайту
+	res = requests.get('https://tenor.com/search/'+search+'-gifs')
+	
+	# проверка на ошибки
+	res.raise_for_status()
+	
+	soup = bs4.BeautifulSoup(res.text)
+	
+	print(res.text)
+	print(soup)
+	
+parser_gif('cat')
+	
+#--------------------------parser---------------------------------------
 
 #--------------------------start----------------------------------------
 @bot.message_handler(commands=['start'])
 def message_hello(message):
 	'''Отвечает на приветсвие человека'''
-	bot.send_message(message.chat.id, 'Ну привет!')
+	# кнпопки
+	button = types.ReplyKeyboardMarkup()
+	button.row('привет', "✨")
+	button.row('error')
+	bot.send_message(message.chat.id, 'Ну привет!', reply_markup=button)
 	#print(message.chat.first_name, message.text)
 #--------------------------start----------------------------------------
 
@@ -26,6 +52,7 @@ def message_text(message):
 		нет нет нет
 		ок ок ок
 		''') 
+		
 	else:
 		bot.send_message(message.chat.id, 'Я тебя не понимаю')
 #--------------------------text-----------------------------------------
@@ -36,7 +63,7 @@ def message_sticker(message):
 	stickers = ['CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA', 
 	'CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA', 
 	'CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA']
-	#bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA')
+	bot.send_sticker(message.chat.id, random.choice(stickers))
 	print(message.sticker.file_id)
 #--------------------------sticker--------------------------------------
 
