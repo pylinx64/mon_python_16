@@ -18,11 +18,23 @@ def parser_gif(search):
 	
 	soup = bs4.BeautifulSoup(res.text)
 	
-	print(res.text)
-	print(soup)
+	# здесь хранятся гифки
+	gifElem = soup.select('img[src]')
 	
-parser_gif('cat')
+	gif_list = []
 	
+	for i in gifElem:
+        # достает только ссылки
+		url = i.get('src')
+        # добавляет ссылки в список
+		gif_list.append(url)
+	
+    # достает рандомную гифку из списка
+	gif_random = random.choice(gif_list)
+	return gif_random
+	
+print(parser_gif('cat'))
+
 #--------------------------parser---------------------------------------
 
 #--------------------------start----------------------------------------
@@ -40,11 +52,11 @@ def message_hello(message):
 #--------------------------text-----------------------------------------
 @bot.message_handler(content_types=['text'])
 def message_text(message):
-	bot.send_message(message.chat.id, 'ФОТО!')
+	#bot.send_message(message.chat.id, 'ФОТО!')
 	'''Принимает текст и отвечает на него'''
 	print(message.chat.first_name, message.text)
 	if 'дела' in message.text.lower():
-		bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA')
+		#bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAIBB2A9BS4QJh0f5Rfijr3BE5x8X68aAAIUAAPANk8TrWWZ5Lkw9j4eBA')
 		bot.send_message(message.chat.id, 'норм') # бот отправляет сообщение 
 	elif 'привет' in message.text.lower():
 		bot.send_message(message.chat.id, '''
