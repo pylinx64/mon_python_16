@@ -32,9 +32,6 @@ def parser_gif(search):
     # достает рандомную гифку из списка
 	gif_random = random.choice(gif_list)
 	return gif_random
-	
-print(parser_gif('cat'))
-
 #--------------------------parser---------------------------------------
 
 #--------------------------start----------------------------------------
@@ -45,7 +42,7 @@ def message_hello(message):
 	button = types.ReplyKeyboardMarkup()
 	button.row('привет', "✨")
 	button.row('error')
-	bot.send_message(message.chat.id, 'Ну привет!', reply_markup=button)
+	bot.send_message(message.chat.id, 'Ну привет! Поиск по гифкам на англиском языке!', reply_markup=button)
 	#print(message.chat.first_name, message.text)
 #--------------------------start----------------------------------------
 
@@ -63,10 +60,9 @@ def message_text(message):
 		да да да
 		нет нет нет
 		ок ок ок
-		''') 
-		
+		''') 	
 	else:
-		bot.send_message(message.chat.id, 'Я тебя не понимаю')
+		bot.send_message(message.chat.id, parser_gif(message.text))
 #--------------------------text-----------------------------------------
 
 #--------------------------sticker--------------------------------------
